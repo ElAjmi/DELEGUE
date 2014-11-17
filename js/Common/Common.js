@@ -7,7 +7,7 @@ Delegue.Mobile.Common = {};
 
 Delegue.Mobile.Common =
 {
-    ServerURL : "http://localhost/DelegueWebService/DelegueService.svc",
+    ServerURL : "http://192.168.1.250/DelegueWebService/DelegueService.svc",
 
     CallService : function(url,callback)
     {
