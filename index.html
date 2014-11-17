@@ -1,0 +1,100 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<title>Application Web jQuery Mobile</title>
+<link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css">
+<link rel="stylesheet" type="text/css" href="css/perso.min.css">
+<link rel="stylesheet" type="text/css" href="css/jquery.mobile.icons.min.css">
+<script src="cordova.js"></script>
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/jquery.mobile-1.4.5.js"></script>
+
+<script src="js/ViewModel/LoginViewModel.js"></script>
+<script src="js/ViewModel/PlanningViewModel.js"></script>
+
+<script src="js/Containers/Client.js"></script>
+<script src="js/Containers/Planning.js"></script>
+<script src="js/Containers/User.js"></script>
+<script src="js/Containers/PlanningDay.js"></script>
+<script src="js/Containers/City.js"></script>
+
+<script src="js/Request/CreateBD.js"></script>
+<script src="js/Request/UserRequest.js"></script>
+<script src="js/Request/ClientRequest.js"></script>
+<script src="js/Request/PlanningRequest.js"></script>
+    <script src="js/Request/CityRequest.js"></script>
+
+<script src="js/Common/Constant.js"></script>
+<script src="js/Common/Common.js"></script>
+<script>
+    function InitConnection()
+    {
+
+        Delegue.Mobile.BD.Initialize();
+
+        $.widget("ui.tabs", $.ui.tabs, {
+
+            _createWidget: function (options, element) {
+                var page, delayedCreate,
+                        that = this;
+
+                if ($.mobile.page) {
+                    page = $(element)
+                            .parents(":jqmData(role='page'),:mobile-page")
+                            .first();
+
+                    if (page.length > 0 && !page.hasClass("ui-page-active")) {
+                        delayedCreate = this._super;
+                        page.one("pagebeforeshow", function () {
+                            delayedCreate.call(that, options, element);
+                        });
+                    }
+                } else {
+                    return this._super();
+                }
+            }
+        });
+        $( document ).on( "pagecreate", function() {
+            $( "body > [data-role='panel']" ).panel();
+            //$( "body > [data-role='panel'] [data-role='listview']" ).listview();
+        });
+        $( document ).one( "pageshow", function() {
+            $( "body > [data-role='header']" ).toolbar();
+            $( "body > [data-role='header'] [data-role='navbar']" ).navbar();
+
+        });
+        $.mobile.changePage("Login.html");
+    }
+
+    $(document).on('pagebeforeshow', '#login', function(){
+        Delegue.Mobile.LoginViewModel.$inputcancel = $("#cancel");
+        Delegue.Mobile.LoginViewModel.$inputconnexion = $("#connexion");
+        Delegue.Mobile.LoginViewModel.$inputlogin = $("#inputLogin");
+        Delegue.Mobile.LoginViewModel.$inputpassword = $("#inputPassword");
+        Delegue.Mobile.LoginViewModel.Init();
+    });
+
+    $(document).on('pagebeforeshow', '#planning', function(){
+        Delegue.Mobile.PlanningViewModel.$HeaderTitle = $("#headerCalendrier h1");
+        Delegue.Mobile.PlanningViewModel.$LundiContent = $("#lundi");
+        Delegue.Mobile.PlanningViewModel.$MardiContent = $("#mardi");
+        Delegue.Mobile.PlanningViewModel.$MercrediContent = $("#mercredi");
+        Delegue.Mobile.PlanningViewModel.$JeudiContent = $("#jeudi");
+        Delegue.Mobile.PlanningViewModel.$VendrediContent = $("#vendredi");
+        Delegue.Mobile.PlanningViewModel.$SamediContent = $("#samedi");
+        Delegue.Mobile.PlanningViewModel.$DimancheContent = $("#dimanche");
+        Delegue.Mobile.PlanningViewModel.Init();
+    });
+
+</script>
+</head> 
+<body> 
+<div data-role="page" id="index">
+
+</div>
+<script>
+    document.addEventListener("deviceready", InitConnection , false);
+</script>
+</body>
+</html>
