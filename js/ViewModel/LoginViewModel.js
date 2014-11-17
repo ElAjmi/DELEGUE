@@ -27,6 +27,7 @@ Delegue.Mobile.LoginViewModel =
         var form = this;
         form.$inputconnexion.click(function(){
 
+			alert("click");
            var userConnected = false;
            //TODO verifier si l'utilisateur est déja Connectée
 
