@@ -21,12 +21,13 @@ Delegue.Mobile.Common =
             async : false,
             success: function (data)
             {
-
+				alert(data);
                 callback(data);
 
             },
             error: function (err,ajaxOptions, thrownError)
             {
+				alert("error");
                 callback("error");
             }
         });
